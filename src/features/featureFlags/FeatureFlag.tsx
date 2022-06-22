@@ -5,20 +5,15 @@ import { useAppSelector } from "../../app/store";
 
 interface Props {
   name: FEATURE_NAMES;
-  children?: JSX.Element;
   activeComponent: ReactNode;
   inactiveComponent?: ReactNode;
 }
 
-const FeatureFlag = ({
-  name,
-  activeComponent: ActiveComponent,
-  inactiveComponent: InactiveComponent,
-}: Props) => {
+const FeatureFlag = ({ name, activeComponent, inactiveComponent }: Props) => {
   const features = useAppSelector(featureFlagConfigSelector);
   const featureIsAvailable = features[name];
 
-  return featureIsAvailable ? ActiveComponent : InactiveComponent;
+  return <>{featureIsAvailable ? activeComponent : inactiveComponent}</>;
 };
 
 export default FeatureFlag;

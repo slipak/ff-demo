@@ -50,7 +50,7 @@ const PageLayout = () => {
             alignItems="center"
           >
             <Typography variant="h6" noWrap component="div">
-              Feature Toggles
+              Beer Blog 🍺
             </Typography>
 
             {loggedUser && (

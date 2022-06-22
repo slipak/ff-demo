@@ -13,9 +13,11 @@ import { showSnackbar } from "../snackbar/snackbarsSlice";
 
 const BeersPage = () => {
   const dispatch = useAppDispatch();
+
   const favoriteBeersFlagOn = useAppSelector(
     (store) => store.featureFlags.config[FEATURE_NAMES.FAVORITES]
   );
+
   const loggedUser = useAppSelector((state) => state.auth.user);
   const { data: beers } = useGetBeersQuery();
   const { data: favoritesBeers } = useGetUserFavoritesQuery(

@@ -11,9 +11,17 @@ const locationApi = queryApi.injectEndpoints({
         };
       },
     }),
+    getBeer: builder.query<Beer[], { id: string }>({
+      query: ({ id }) => {
+        return {
+          url: `https://api.punkapi.com/v2/beers/${id}`,
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetBeersQuery } = locationApi;
+export const { useGetBeersQuery, useGetBeerQuery } = locationApi;
 
 export default locationApi;

@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { FC } from "react";
 import { Beer } from "../features/beers/types";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   beer: Beer;
@@ -20,6 +21,7 @@ const BeerCard: FC<Props> = ({
   addToFavoritesAvailable,
   handleAddToFavorites,
 }) => {
+  const navigate = useNavigate();
   return (
     <Card>
       <CardMedia
@@ -43,6 +45,12 @@ const BeerCard: FC<Props> = ({
             Add To Favorite
           </Button>
         )}
+        <Button
+          size="small"
+          onClick={() => navigate(`/beers/${beer.id}`, { replace: true })}
+        >
+          Go To Details
+        </Button>
       </CardActions>
     </Card>
   );

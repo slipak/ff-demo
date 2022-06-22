@@ -5,7 +5,6 @@ import LoginPage from "../features/auth/LoginPage";
 import { Box } from "@mui/material";
 import BeersPage from "../features/beers/BeersPage";
 import { useEffect } from "react";
-import flagsmith from "flagsmith";
 import {
   featureFlagSelector,
   setFeatureFlagsConfig,
@@ -13,6 +12,8 @@ import {
 import UsersPage from "../features/users/UsersPage";
 import FavoritesPage from "../features/favorites";
 import { Snackbars } from "../features/snackbar/Snackbars";
+import flagsmith from "flagsmith";
+import BeerPage from "../features/beers/BeerPage";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -48,12 +49,13 @@ function App() {
           {favoriteBeersFeatureAvailable && (
             <Route path="/favorites" element={<FavoritesPage />} />
           )}
-          <Route index element={<BeersPage />} />
+          <Route path="beers" element={<BeersPage />} />
+          <Route path="/beers/:id" element={<BeerPage />} />
           <Route path="*" element={<Box>Page not Found</Box>} />
         </Route>
         <Route
           path="/login"
-          element={!loggedUser ? <LoginPage /> : <Navigate to="/" />}
+          element={!loggedUser ? <LoginPage /> : <Navigate to="/beers" />}
         />
         <Route path="*" element={<Box>Page not Found</Box>} />
       </Routes>

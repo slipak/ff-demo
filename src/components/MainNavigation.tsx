@@ -32,7 +32,7 @@ export const NAVIGATION_ITEMS: NavItem[] = [
   {
     title: "Beers",
     icon: <SupervisorAccountIcon />,
-    url: "/",
+    url: "/beers",
   },
   {
     title: "Favorite Beers",

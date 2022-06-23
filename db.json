@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "905324c3-6e19-4ab8-a216-64ad3415n0n7",
-      "name": "Admin User",
+      "name": "Joe Doe",
       "email": "admin@user.com",
       "role": "admin"
     },

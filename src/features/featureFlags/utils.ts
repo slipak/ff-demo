@@ -1,15 +1,22 @@
-import { FeatureFlagConfig } from "./types";
-import { IFlags } from "flagsmith/types";
+import { FeatureFlag, FeatureFlagConfig, UpdatedFeatureFlag } from "./types";
 
-export const mergeFeatureFlags = (config: FeatureFlagConfig, flags: IFlags) => {
-  return Object.keys(config).reduce(
+export const getUpdatedFeatureFlags = (flags: UpdatedFeatureFlag) =>
+  Object.keys(flags).reduce(
+    (acc, f) => ({ [f]: flags[f as keyof typeof flags].current }),
+    {}
+  );
+
+export const mergeAndValidateFeatureFlags = (
+  config: FeatureFlagConfig,
+  flags: FeatureFlag
+) =>
+  Object.keys(config).reduce(
     (acc: FeatureFlagConfig, flagName) =>
-      flags[flagName]
+      typeof flags[flagName as keyof typeof flags] === "boolean"
         ? {
             ...acc,
-            [flagName]: flags[flagName].enabled,
+            [flagName]: flags[flagName as keyof typeof flags],
           }
         : acc,
     Object.assign({}, config)
   );
-};

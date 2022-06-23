@@ -1,7 +1,6 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FeatureFlagConfig } from "./types";
-import { IFlags } from "flagsmith/types";
-import { mergeFeatureFlags } from "./utils";
+import { FeatureFlag, FeatureFlagConfig } from "./types";
+import { mergeAndValidateFeatureFlags } from "./utils";
 import { FEATURE_NAMES } from "./constants";
 import { RootState } from "../../app/store";
 
@@ -20,8 +19,8 @@ export const featureFlagSlice = createSlice({
   name: "featureFlags",
   initialState,
   reducers: {
-    setConfig(state, { payload }: PayloadAction<IFlags>) {
-      state.config = mergeFeatureFlags(state.config, payload);
+    setConfig(state, { payload }: PayloadAction<FeatureFlag>) {
+      state.config = mergeAndValidateFeatureFlags(state.config, payload);
     },
   },
 });

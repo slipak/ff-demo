@@ -12,8 +12,9 @@ import {
 import UsersPage from "../features/users/UsersPage";
 import FavoritesPage from "../features/favorites";
 import { Snackbars } from "../features/snackbar/Snackbars";
-import flagsmith from "flagsmith";
+import * as LDClient from "launchdarkly-js-client-sdk";
 import BeerPage from "../features/beers/BeerPage";
+import { getUpdatedFeatureFlags } from "../features/featureFlags/utils";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -22,18 +23,22 @@ function App() {
     useAppSelector(featureFlagSelector);
 
   useEffect(() => {
-    if (!loggedUser?.id || !process.env.REACT_APP_FLAGSMITH_ENV_ID) {
-      return;
-    }
+    let client: LDClient.LDClient;
 
-    flagsmith.init({
-      environmentID: process.env.REACT_APP_FLAGSMITH_ENV_ID,
-      identity: loggedUser.id,
-      onChange: (flags, params) => {
-        dispatch(setFeatureFlagsConfig(flags));
-      },
-    });
-  }, [dispatch, loggedUser?.id]);
+    if (loggedUser) {
+      client = LDClient.initialize("62a84c2c5b537515441dd03a", {
+        key: loggedUser.id,
+        email: loggedUser.email,
+      });
+
+      client.on("ready", () => {
+        dispatch(setFeatureFlagsConfig(client.allFlags()));
+      });
+      client.on("change", (settings) => {
+        dispatch(setFeatureFlagsConfig(getUpdatedFeatureFlags(settings)));
+      });
+    }
+  }, [dispatch, loggedUser]);
 
   return (
     <>

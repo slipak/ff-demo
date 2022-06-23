@@ -22,35 +22,33 @@ const BeerCard: FC<Props> = ({
   handleAddToFavorites,
 }) => {
   const navigate = useNavigate();
+
   return (
-    <Card>
+    <Card sx={{ p: 1, display: "flex", flexDirection: "column" }}>
       <CardMedia
         component="img"
-        height="300"
+        height="150"
         image={beer.image_url}
         alt={beer.name}
         sx={{ objectFit: "contain" }}
       />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+      <CardContent sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
+        <Typography gutterBottom variant="subtitle1" component="div">
           {beer.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {beer.contributed_by}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Button size="small" onClick={() => navigate(`/beers/${beer.id}`)}>
+          Go To Details
+        </Button>
         {addToFavoritesAvailable && (
           <Button size="small" onClick={handleAddToFavorites}>
             Add To Favorite
           </Button>
         )}
-        <Button
-          size="small"
-          onClick={() => navigate(`/beers/${beer.id}`, { replace: true })}
-        >
-          Go To Details
-        </Button>
       </CardActions>
     </Card>
   );

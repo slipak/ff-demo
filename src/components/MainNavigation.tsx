@@ -1,7 +1,7 @@
 import {
-  SupervisorAccount as SupervisorAccountIcon,
   Grade as GradeIcon,
   Group as GroupIcon,
+  WineBar as WineBarIcon,
 } from "@mui/icons-material";
 import {
   Box,
@@ -31,7 +31,7 @@ interface NavItem {
 export const NAVIGATION_ITEMS: NavItem[] = [
   {
     title: "Beers",
-    icon: <SupervisorAccountIcon />,
+    icon: <WineBarIcon />,
     url: "/beers",
   },
   {

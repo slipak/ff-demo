@@ -1,49 +1,23 @@
-import { useAppDispatch, useAppSelector } from "./store";
+import { useAppSelector } from "./store";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { PageLayout } from "../components";
 import LoginPage from "../features/auth/LoginPage";
 import { Box } from "@mui/material";
 import BeersPage from "../features/beers/BeersPage";
-import { useEffect } from "react";
-import {
-  featureFlagSelector,
-  setFeatureFlagsConfig,
-} from "../features/featureFlags/featureFlagsSlice";
+import { featureFlagSelector } from "../features/featureFlags/featureFlagsSlice";
 import UsersPage from "../features/users/UsersPage";
 import FavoritesPage from "../features/favorites";
 import { Snackbars } from "../features/snackbar/Snackbars";
-import * as LDClient from "launchdarkly-js-client-sdk";
-import BeerPage from "../features/beers/BeerPage";
-import { getUpdatedFeatureFlags } from "../features/featureFlags/utils";
 
-const LAUNCH_DARKLY_ENV_ID = process.env.REACT_APP_LAUNCH_DARKLY_ENV_ID;
+import BeerPage from "../features/beers/BeerPage";
+import useLaunchDarkly from "../features/featureFlags/useLaunchDarkly";
 
 function App() {
-  const dispatch = useAppDispatch();
   const loggedUser = useAppSelector((store) => store.auth.user);
   const { usersFeatureAvailable, favoriteBeersFeatureAvailable } =
     useAppSelector(featureFlagSelector);
 
-  useEffect(() => {
-    if (!LAUNCH_DARKLY_ENV_ID) {
-      throw Error("Please set up LAUNCH_DARKLY_ENV_ID");
-    }
-    let client: LDClient.LDClient;
-
-    if (loggedUser) {
-      client = LDClient.initialize(LAUNCH_DARKLY_ENV_ID, {
-        key: loggedUser.id,
-        email: loggedUser.email,
-      });
-
-      client.on("ready", () => {
-        dispatch(setFeatureFlagsConfig(client.allFlags()));
-      });
-      client.on("change", (settings) => {
-        dispatch(setFeatureFlagsConfig(getUpdatedFeatureFlags(settings)));
-      });
-    }
-  }, [dispatch, loggedUser]);
+  useLaunchDarkly();
 
   return (
     <>

@@ -16,6 +16,8 @@ import * as LDClient from "launchdarkly-js-client-sdk";
 import BeerPage from "../features/beers/BeerPage";
 import { getUpdatedFeatureFlags } from "../features/featureFlags/utils";
 
+const LAUNCH_DARKLY_ENV_ID = process.env.REACT_APP_LAUNCH_DARKLY_ENV_ID;
+
 function App() {
   const dispatch = useAppDispatch();
   const loggedUser = useAppSelector((store) => store.auth.user);
@@ -23,10 +25,13 @@ function App() {
     useAppSelector(featureFlagSelector);
 
   useEffect(() => {
+    if (!LAUNCH_DARKLY_ENV_ID) {
+      throw Error("Please set up LAUNCH_DARKLY_ENV_ID");
+    }
     let client: LDClient.LDClient;
 
     if (loggedUser) {
-      client = LDClient.initialize("62a84c2c5b537515441dd03a", {
+      client = LDClient.initialize(LAUNCH_DARKLY_ENV_ID, {
         key: loggedUser.id,
         email: loggedUser.email,
       });

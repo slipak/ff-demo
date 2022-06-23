@@ -2,7 +2,7 @@ import { useAppSelector } from "./store";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { PageLayout } from "../components";
 import LoginPage from "../features/auth/LoginPage";
-import { Box } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/material";
 import BeersPage from "../features/beers/BeersPage";
 import { featureFlagSelector } from "../features/featureFlags/featureFlagsSlice";
 import UsersPage from "../features/users/UsersPage";
@@ -11,6 +11,7 @@ import { Snackbars } from "../features/snackbar/Snackbars";
 
 import BeerPage from "../features/beers/BeerPage";
 import useLaunchDarkly from "../features/featureFlags/useLaunchDarkly";
+import theme from "./theme";
 
 function App() {
   const loggedUser = useAppSelector((store) => store.auth.user);
@@ -20,7 +21,7 @@ function App() {
   useLaunchDarkly();
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Routes>
         <Route
           path="/"
@@ -44,7 +45,7 @@ function App() {
         <Route path="*" element={<Box>Page not Found</Box>} />
       </Routes>
       <Snackbars />
-    </>
+    </ThemeProvider>
   );
 }
 

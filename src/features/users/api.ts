@@ -7,7 +7,7 @@ const usersApi = queryApi.injectEndpoints({
       query: (params) => {
         const searchQuery = params?.email ? `?email_like=${params.email}` : "";
         return {
-          url: `http://localhost:4020/users${searchQuery}`,
+          url: `/users${searchQuery}`,
           method: "GET",
         };
       },

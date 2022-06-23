@@ -1,19 +1,17 @@
-import { FEATURE_NAMES } from "./constants";
-import { ReactNode } from "react";
-import { featureFlagConfigSelector } from "./featureFlagsSlice";
-import { useAppSelector } from "../../app/store";
+import { FC, ReactNode } from "react";
 
 interface Props {
-  name: FEATURE_NAMES;
+  isActive?: boolean;
   activeComponent: ReactNode;
   inactiveComponent?: ReactNode;
 }
 
-const FeatureFlag = ({ name, activeComponent, inactiveComponent }: Props) => {
-  const features = useAppSelector(featureFlagConfigSelector);
-  const featureIsAvailable = features[name];
-
-  return <>{featureIsAvailable ? activeComponent : inactiveComponent}</>;
+const FeatureFlag: FC<Props> = ({
+  isActive,
+  activeComponent,
+  inactiveComponent,
+}: Props) => {
+  return <>{isActive ? activeComponent : inactiveComponent}</>;
 };
 
 export default FeatureFlag;

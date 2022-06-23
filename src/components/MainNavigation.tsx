@@ -50,8 +50,8 @@ export const NAVIGATION_ITEMS: NavItem[] = [
 
 const MainNavigation = () => {
   const location = useLocation();
-  const isActive = (url: string) => {
-    return Boolean(matchPath({ path: url, end: true }, location.pathname));
+  const isActiveNavItem = (url: string) => {
+    return Boolean(matchPath({ path: url, end: false }, location.pathname));
   };
   const features = useAppSelector(featureFlagConfigSelector);
 
@@ -75,7 +75,7 @@ const MainNavigation = () => {
           ).map(({ title, icon, url }, index) => (
             <ListItem key={`nav-${title}-${index}`} disablePadding>
               <ListItemButton
-                selected={isActive(url)}
+                selected={isActiveNavItem(url)}
                 component={Link}
                 to={url}
               >

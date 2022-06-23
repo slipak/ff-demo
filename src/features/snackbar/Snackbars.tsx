@@ -1,4 +1,5 @@
-import { Alert, AlertTitle, Box, Snackbar } from "@mui/material";
+import { IconButton, Snackbar } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { SyntheticEvent, useEffect, useState } from "react";
 import {
   dismissPreviousSnackbar,
@@ -38,29 +39,21 @@ export const Snackbars = () => {
 
   return (
     <Snackbar
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "center",
+      }}
       open={isOpen}
       autoHideDuration={6000}
       onClose={onClosed}
       TransitionProps={{ onExited }}
       key={visibleSnackbar?.id}
-    >
-      <Alert
-        style={{
-          maxWidth: 480,
-        }}
-        variant="filled"
-        elevation={4}
-        onClose={onClosed}
-        severity={visibleSnackbar?.severity}
-      >
-        {visibleSnackbar?.title && (
-          <AlertTitle>{visibleSnackbar.title}</AlertTitle>
-        )}
-        <Box
-          dangerouslySetInnerHTML={{ __html: visibleSnackbar?.content ?? "" }}
-        />
-      </Alert>
-    </Snackbar>
+      message={visibleSnackbar?.title}
+      action={
+        <IconButton color="inherit" onClick={onClosed}>
+          <CloseIcon />
+        </IconButton>
+      }
+    />
   );
 };

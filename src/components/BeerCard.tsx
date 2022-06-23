@@ -9,14 +9,15 @@ import {
 import { FC } from "react";
 import { Beer } from "../features/beers/types";
 import { useNavigate } from "react-router-dom";
+// import FeatureFlag from "../features/featureFlags/FeatureFlag";
 
-type Props = {
+export type BeerProps = {
   beer: Beer;
   addToFavoritesAvailable?: boolean;
   handleAddToFavorites?: () => void;
 };
 
-const BeerCard: FC<Props> = ({
+const BeerCard: FC<BeerProps> = ({
   beer,
   addToFavoritesAvailable,
   handleAddToFavorites,
@@ -37,7 +38,7 @@ const BeerCard: FC<Props> = ({
           {beer.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {beer.contributed_by}
+          {beer.description}
         </Typography>
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -49,6 +50,14 @@ const BeerCard: FC<Props> = ({
             Add To Favorite
           </Button>
         )}
+        {/*<FeatureFlag*/}
+        {/*  isActive={addToFavoritesAvailable}*/}
+        {/*  activeComponent={*/}
+        {/*    <Button size="small" onClick={handleAddToFavorites}>*/}
+        {/*      Add To Favorite*/}
+        {/*    </Button>*/}
+        {/*  }*/}
+        {/*/>*/}
       </CardActions>
     </Card>
   );

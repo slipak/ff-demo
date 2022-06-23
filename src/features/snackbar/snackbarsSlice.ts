@@ -1,11 +1,8 @@
-import { AlertProps } from '@mui/material';
-import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 
 export type Snackbar = {
   id: string;
-  title?: string;
-  content: string;
-  severity?: AlertProps['severity'];
+  title: string;
 };
 
 export type SnackbarsState = Snackbar[];

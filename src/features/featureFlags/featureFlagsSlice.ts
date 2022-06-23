@@ -12,6 +12,8 @@ const initialState: FeatureFlagState = {
   config: {
     [FEATURE_NAMES.USERS]: false,
     [FEATURE_NAMES.FAVORITES]: false,
+    [FEATURE_NAMES.EXPERIMENTAL_BEER_CARD]: false,
+    [FEATURE_NAMES.HARD_CORE_EXPERIMENTS_MODE]: false,
   },
 };
 
@@ -42,6 +44,9 @@ export const featureFlagSelector = createSelector(
     return {
       usersFeatureAvailable: featureFlags[FEATURE_NAMES.USERS],
       favoriteBeersFeatureAvailable: featureFlags[FEATURE_NAMES.FAVORITES],
+      experimentalBeerCard:
+        featureFlags[FEATURE_NAMES.EXPERIMENTAL_BEER_CARD] &&
+        featureFlags[FEATURE_NAMES.HARD_CORE_EXPERIMENTS_MODE],
     };
   }
 );

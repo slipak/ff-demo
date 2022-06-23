@@ -6,7 +6,7 @@ const favoritesApi = queryApi.injectEndpoints({
     getUserFavorites: builder.query<Favorite[], { userId: string }>({
       query: ({ userId }) => {
         return {
-          url: `http://localhost:4020/favorites?userId=${userId}`,
+          url: `/favorites?userId=${userId}`,
           method: "GET",
         };
       },
@@ -15,7 +15,7 @@ const favoritesApi = queryApi.injectEndpoints({
     postFavorites: builder.mutation<Favorite, Partial<Favorite>>({
       query(data) {
         return {
-          url: `http://localhost:4020/favorites`,
+          url: `/favorites`,
           method: "POST",
           body: data,
         };

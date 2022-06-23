@@ -1,3 +1,17 @@
+export interface Amount {
+  value: number;
+  unit: string;
+}
+export interface Malt {
+  name: string;
+  amount: Amount;
+}
+export interface Hop {
+  add: string;
+  amount: Amount;
+  attribute: string;
+  name: string;
+}
 export interface Beer {
   id: number;
   name: string;
@@ -21,7 +35,16 @@ export interface Beer {
     value: number;
     unit: string;
   };
-
+  ingredients: {
+    hops: Hop[];
+    malt: Malt[];
+    yeast: string;
+  };
+  method: {
+    fermentation: {
+      temp: Amount;
+    };
+  };
   food_pairing: string[];
   brewers_tips: string;
   contributed_by: string;

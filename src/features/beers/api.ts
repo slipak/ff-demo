@@ -6,15 +6,15 @@ const locationApi = queryApi.injectEndpoints({
     getBeers: builder.query<Beer[], void>({
       query: () => {
         return {
-          url: "https://api.punkapi.com/v2/beers?page=2&per_page=80",
+          url: "/beers",
           method: "GET",
         };
       },
     }),
-    getBeer: builder.query<Beer[], { id: string }>({
+    getBeer: builder.query<Beer, { id: string }>({
       query: ({ id }) => {
         return {
-          url: `https://api.punkapi.com/v2/beers/${id}`,
+          url: `/beers/${id}`,
           method: "GET",
         };
       },

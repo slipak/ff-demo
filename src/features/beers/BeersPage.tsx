@@ -10,6 +10,9 @@ import {
 import { skipToken } from "@reduxjs/toolkit/query";
 import { Beer } from "./types";
 import { showSnackbar } from "../snackbar/snackbarsSlice";
+import FeatureFlag from "../featureFlags/FeatureFlag";
+import { featureFlagSelector } from "../featureFlags/featureFlagsSlice";
+import NewBeerCard from "../../components/NewBeerCard";
 
 const BeersPage = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +20,8 @@ const BeersPage = () => {
   const favoriteBeersFlagOn = useAppSelector(
     (store) => store.featureFlags.config[FEATURE_NAMES.FAVORITES]
   );
+
+  const { experimentalBeerCard } = useAppSelector(featureFlagSelector);
 
   const loggedUser = useAppSelector((state) => state.auth.user);
   const { data: beers } = useGetBeersQuery();
@@ -31,8 +36,7 @@ const BeersPage = () => {
     ) {
       dispatch(
         showSnackbar({
-          severity: "info",
-          content: "Item has already been added!",
+          title: "Item has already been added!",
         })
       );
       return;
@@ -43,12 +47,10 @@ const BeersPage = () => {
     });
     dispatch(
       showSnackbar({
-        severity: "success",
-        content: "Item has been added!",
+        title: "Item has been added!",
       })
     );
   };
-
   return (
     <Box
       sx={{
@@ -57,12 +59,24 @@ const BeersPage = () => {
         gridGap: 20,
       }}
     >
-      {beers?.map((beer) => (
-        <BeerCard
-          key={`${beer.id}-${beer.name}`}
-          beer={beer}
-          addToFavoritesAvailable={favoriteBeersFlagOn}
-          handleAddToFavorites={() => handleAddToFavorites(beer)}
+      {beers?.map((beer, index) => (
+        <FeatureFlag
+          key={`${beer.id}-${beer.name}-${index}`}
+          isActive={experimentalBeerCard}
+          activeComponent={
+            <NewBeerCard
+              beer={beer}
+              addToFavoritesAvailable={favoriteBeersFlagOn}
+              handleAddToFavorites={() => handleAddToFavorites(beer)}
+            />
+          }
+          inactiveComponent={
+            <BeerCard
+              beer={beer}
+              addToFavoritesAvailable={favoriteBeersFlagOn}
+              handleAddToFavorites={() => handleAddToFavorites(beer)}
+            />
+          }
         />
       ))}
     </Box>

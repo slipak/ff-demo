@@ -6,7 +6,7 @@ import { setFeatureFlagsConfig } from "./featureFlagsSlice";
 
 const LAUNCH_DARKLY_ENV_ID = process.env.REACT_APP_LAUNCH_DARKLY_ENV_ID;
 
-function useLaunchDarkly() {
+function useFeatureFlags() {
   const dispatch = useAppDispatch();
   const loggedUser = useAppSelector((store) => store.auth.user);
 
@@ -32,4 +32,4 @@ function useLaunchDarkly() {
   }, [dispatch, loggedUser]);
 }
 
-export default useLaunchDarkly;
+export default useFeatureFlags;

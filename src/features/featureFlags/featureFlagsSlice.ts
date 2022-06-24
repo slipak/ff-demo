@@ -10,8 +10,8 @@ export type FeatureFlagState = {
 
 const initialState: FeatureFlagState = {
   config: {
-    [FEATURE_NAMES.USERS]: false,
-    [FEATURE_NAMES.FAVORITES]: false,
+    [FEATURE_NAMES.USERS]: true,
+    [FEATURE_NAMES.FAVORITES]: true,
     [FEATURE_NAMES.EXPERIMENTAL_BEER_CARD]: false,
     [FEATURE_NAMES.HARD_CORE_EXPERIMENTS_MODE]: false,
   },

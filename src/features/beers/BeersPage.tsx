@@ -13,6 +13,7 @@ import { showSnackbar } from "../snackbar/snackbarsSlice";
 import FeatureFlag from "../featureFlags/FeatureFlag";
 import { featureFlagSelector } from "../featureFlags/featureFlagsSlice";
 import NewBeerCard from "../../components/NewBeerCard";
+// import BeerCardExperiment from "../../components/BeerCardExperiment";
 
 const BeersPage = () => {
   const dispatch = useAppDispatch();
@@ -84,3 +85,10 @@ const BeersPage = () => {
 };
 
 export default BeersPage;
+
+// <BeerCardExperiment
+//   key={`${beer.id}-${beer.name}-${index}`}
+//   beer={beer}
+//   addToFavoritesAvailable={favoriteBeersFlagOn}
+//   handleAddToFavorites={() => handleAddToFavorites(beer)}
+// />;

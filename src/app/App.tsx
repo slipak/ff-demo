@@ -10,7 +10,7 @@ import FavoritesPage from "../features/favorites";
 import { Snackbars } from "../features/snackbar/Snackbars";
 
 import BeerPage from "../features/beers/BeerPage";
-import useLaunchDarkly from "../features/featureFlags/useLaunchDarkly";
+import useFeatureFlags from "../features/featureFlags/useFeatureFlags";
 import theme from "./theme";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
   const { usersFeatureAvailable, favoriteBeersFeatureAvailable } =
     useAppSelector(featureFlagSelector);
 
-  useLaunchDarkly();
+  useFeatureFlags();
 
   return (
     <ThemeProvider theme={theme}>
@@ -27,6 +27,8 @@ function App() {
           path="/"
           element={loggedUser ? <PageLayout /> : <Navigate to="/login" />}
         >
+          <Route path="beers" element={<BeersPage />} />
+          <Route path="/beers/:id" element={<BeerPage />} />
           {usersFeatureAvailable && (
             <Route path="/users" element={<UsersPage />} />
           )}
@@ -34,8 +36,6 @@ function App() {
           {favoriteBeersFeatureAvailable && (
             <Route path="/favorites" element={<FavoritesPage />} />
           )}
-          <Route path="beers" element={<BeersPage />} />
-          <Route path="/beers/:id" element={<BeerPage />} />
           <Route path="*" element={<Box>Page not Found</Box>} />
         </Route>
         <Route

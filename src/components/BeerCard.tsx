@@ -9,7 +9,7 @@ import {
 import { FC } from "react";
 import { Beer } from "../features/beers/types";
 import { useNavigate } from "react-router-dom";
-// import FeatureFlag from "../features/featureFlags/FeatureFlag";
+import FeatureFlag from "../features/featureFlags/FeatureFlag";
 
 export type BeerProps = {
   beer: Beer;

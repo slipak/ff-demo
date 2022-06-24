@@ -13,7 +13,7 @@ import { showSnackbar } from "../snackbar/snackbarsSlice";
 import FeatureFlag from "../featureFlags/FeatureFlag";
 import { featureFlagSelector } from "../featureFlags/featureFlagsSlice";
 import NewBeerCard from "../../components/NewBeerCard";
-// import BeerCardExperiment from "../../components/BeerCardExperiment";
+import BeerCardExperiment from "../../components/BeerCardExperiment";
 
 const BeersPage = () => {
   const dispatch = useAppDispatch();

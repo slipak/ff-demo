@@ -18,7 +18,7 @@ function App() {
   const { usersFeatureAvailable, favoriteBeersFeatureAvailable } =
     useAppSelector(featureFlagSelector);
 
-  useFeatureFlags();
+  // useFeatureFlags();
 
   return (
     <ThemeProvider theme={theme}>

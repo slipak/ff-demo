@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { getUpdatedFeatureFlags } from "./utils";
 import * as LDClient from "launchdarkly-js-client-sdk";
 import { useAppDispatch, useAppSelector } from "../../app/store";
@@ -10,7 +10,7 @@ function useLaunchDarkly() {
   const dispatch = useAppDispatch();
   const loggedUser = useAppSelector((store) => store.auth.user);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!LAUNCH_DARKLY_ENV_ID) {
       throw Error("Please set up LAUNCH_DARKLY_ENV_ID");
     }
